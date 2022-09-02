@@ -2,6 +2,10 @@ from apps.dashboard.views import *
 
 # TODOS LOS ROLES
 def fc_get_all_roles():
+    """
+    Obtiene todos los roles de la base de datos y los devuelve como una lista de tuplas
+    :return: Una lista de tuplas.
+    """
     try:
         cx = get_connection()
         with cx.cursor() as cursor:
@@ -14,6 +18,13 @@ def fc_get_all_roles():
 
 # OBTENER UN ROL
 def fc_get_roles (id_modulo):
+    """
+    Obtiene una conexión a la base de datos, crea un cursor, ejecuta un procedimiento almacenado,
+    obtiene los resultados, cierra la conexión y devuelve los resultados.
+    
+    :param id_modulo: es el id del modulo
+    :return: Una lista de tuplas.
+    """
     try:
         cx = get_connection()
         with cx.cursor() as cursor:
@@ -26,6 +37,13 @@ def fc_get_roles (id_modulo):
 
 # INSERTAR ROL
 def fc_insert_roles (nombre_rol, descripcion_rol):
+    """
+    Inserta un Rol en base de datos.
+    
+    :param nombre_rol: El nombre del papel
+    :param descripcion_rol: "Esto es una prueba"
+    :return: El resultado de la consulta.
+    """
     try:
         cx = get_connection()
         with cx.cursor() as cursor:
@@ -40,6 +58,14 @@ def fc_insert_roles (nombre_rol, descripcion_rol):
 
 # ACTUALIZAR ROL
 def fc_update_roles(id_rol, nombre_rol, descripcion_rol):
+    """
+    Toma tres parámetros, llama a un procedimiento almacenado con esos parámetros y actualiza el Rol dentro de base de datos.
+    
+    :param id_rol: En t
+    :param nombre_rol: "Administrador"
+    :param descripcion_rol: "Esto es una prueba"
+    :return: El resultado de la consulta.
+    """
     try:
         cx = get_connection()
         with cx.cursor() as cursor:
