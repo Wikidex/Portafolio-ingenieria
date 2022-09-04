@@ -119,3 +119,57 @@ def fc_delete_roles(id_rol):
     except Exception as ex:
         print(ex)
         return "Error en el Proceso"
+
+
+def fc_get_enabled_modulos():
+    """
+    Obtiene una conexión, crea un cursor, ejecuta un procedimiento almacenado, obtiene los resultados,
+    cierra la conexión y devuelve los resultados, en dónde llegan datos de módulos activados dentro de 
+    base de datos.
+
+    :return: Una lista de tuplas.
+    """
+    try:
+        cx = get_connection()
+        with cx.cursor() as cursor:
+            cursor.execute("CALL USP_MODULOS_ENABLED()")
+            result = cursor.fetchall()
+        cx.close()
+        return result
+    except Exception as ex:
+        print (ex)
+
+def fc_get_permisos (id_rol):
+    try:
+        cx = get_connection()
+        with cx.cursor() as cursor:
+            cursor.execute("CALL USP_PERMISOS_GET(%s)" % (id_rol))
+            result = cursor.fetchall()
+        cx.close()
+        return result
+    except Exception as ex:
+        print (ex)
+
+def fc_insert_permisos(id_modulo, id_rol, c, r, u, d):
+    try:
+        cx = get_connection()
+        with cx.cursor() as cursor:
+            cursor.execute("call usp_permisos_insert(%s, %s, %s, %s, %s, %s)" % (id_modulo, id_rol, c, r, u, d))
+            cx.commit()
+        cx.close()
+        return "Realizado con Éxito"
+    except Exception as ex:
+        print (ex)
+        return "Error en el Proceso"
+
+def fc_delete_permisos(id_rol):
+    try:
+        cx = get_connection()
+        with cx.cursor() as cursor:
+            cursor.execute("call usp_permisos_delete(%s)" % (id_rol))
+            cx.commit()
+        cx.close()
+        return "Realizado con Éxito"
+    except Exception as ex:
+        print (ex)
+        return "Error en el Proceso"

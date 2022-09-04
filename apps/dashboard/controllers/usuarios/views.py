@@ -1,8 +1,11 @@
+import base64
+from fnmatch import translate
 from hashlib import sha256
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from .usp import *
 import hashlib
+from cryptography.fernet import Fernet
 
 """
 It returns a rendered template
@@ -12,6 +15,7 @@ It returns a rendered template
 """
 def getUsuariosPage(request):
     data = {
+        'meta_title' : 'Dashboard - Usuarios',
         'breadcrumb': "Usuarios",
         'title': 'Lista de Usuarios',
         'subtitle': 'Lista completa de usuarios',
@@ -39,7 +43,9 @@ def insertUsuario(request):
             v_apellido_materno = request.POST.get("txtApellidoMaterno")
             v_correo = request.POST.get("txtCorreoElectronico")
             # Creating a hash of the second name, the @ symbol and the user's rut.
-            v_password = hashlib.sha256((v_segundo_nombre, '@', v_rut_usuario).encode('utf-8')).hexdigest()
+            vaa = v_primer_nombre+ '@' +v_rut_usuario
+
+            v_password = hashlib.sha256(vaa.encode('utf-8')).hexdigest()
             v_telefono = request.POST.get("txtTelefono")
             v_direccion = request.POST.get("txtDireccion")
             v_status_usuario = 0
@@ -82,7 +88,6 @@ def getAllUsuarios(request):
     'apellido_paterno': 'Perez', 'apellido_materno': 'Gonzalez', 'correo
     """
     data_ususarios = list(fc_get_all_usuarios())
-    print (data_ususarios)
     data_to_array = []
     # Convertir TUPLA a Array Modificable
     for i in data_ususarios:
@@ -99,6 +104,12 @@ def getAllUsuarios(request):
             "status_usuario": i[9],
             "id_rol": i[10],
         })
+    # sha256(as_bytestring(s)).hexdigest().decode('ascii')
+    p1 = 'hoa'
+    v1 = hashlib.sha256(p1.encode('utf-8')).hexdigest()
+    print (v1)
+
+    hashlib.sha256(v1.decode('utf-8'))
 
     # Añadir HTML
     for i in data_to_array:

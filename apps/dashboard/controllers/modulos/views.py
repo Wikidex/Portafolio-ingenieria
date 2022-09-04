@@ -12,6 +12,7 @@ def getModulosPage(request):
     """
 
     data = {
+        'meta_title' : 'Dashboard - Módulos',
         'breadcrumb': "Módulos",
         'title': 'Lista de Módulos',
         'subtitle': 'Lista completa de módulos',

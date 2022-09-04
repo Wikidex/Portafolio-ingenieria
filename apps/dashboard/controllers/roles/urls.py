@@ -9,6 +9,8 @@ urlpatterns = [
     path('api/v2/roles/activate', enableRol, name="enableRol"),
     path('api/v2/roles/deactivate', disableRol, name="disableRol"),
     path('api/v2/roles/delete', deleteRol, name="deleteRol"),
+    path('api/v2/permisos/get', getPermisos, name="getPermisos"),
+    path('api/v2/permisos/insert', setPermisos, name="setPermisos"),
 
 ]
 

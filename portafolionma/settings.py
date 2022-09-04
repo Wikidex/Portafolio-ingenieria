@@ -27,18 +27,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
-
-# Application definition
-
 INSTALLED_APPS = [
-    "django.contrib.admin",
     "django.contrib.auth",
-    "django.contrib.contenttypes",
     "django.contrib.sessions",
+    "django.contrib.contenttypes",
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "apps.dashboard",
-    "apps.home"
+    "apps.home",
 ]
 
 MIDDLEWARE = [
@@ -56,11 +52,11 @@ ROOT_URLCONF = "portafolionma.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": ["apps/dashboard/templates", "apps/home/templates", 
+        "DIRS": ["apps/dashboard/templates", "apps/home/templates",
                  "apps/dashboard/controllers/modulos/templates",
                  "apps/dashboard/controllers/usuarios/templates",
                  "apps/dashboard/controllers/roles/templates",
-                ],
+                 ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -82,12 +78,21 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator", },
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator", },
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator", },
 ]
 
-
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'portafolionma1',
+        'USER': 'root',
+        'PASSWORD': 'duoc',
+        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'PORT': '3306',
+    }
+}
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
@@ -99,10 +104,10 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
-print (BASE_DIR)
+print(BASE_DIR)
 if (DEBUG == True):
     STATIC_URL = "stcs/"
-    MEDIA_URL ='/media/'
+    MEDIA_URL = '/media/'
     STATICFILES_DIRS = [
         os.path.join(BASE_DIR, 'apps', 'stcs'),
         os.path.join(BASE_DIR, 'apps/media')
